@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7019CD31EE1659100A43A4E /* NSAlert+LM.m in Sources */ = {isa = PBXBuildFile; fileRef = E7019CD21EE1659100A43A4E /* NSAlert+LM.m */; };
 		E7C8EA821ECF6C540050E95B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C8EA811ECF6C540050E95B /* AppDelegate.m */; };
 		E7C8EA851ECF6C550050E95B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C8EA841ECF6C550050E95B /* main.m */; };
 		E7C8EA881ECF6C550050E95B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C8EA871ECF6C550050E95B /* ViewController.m */; };
@@ -31,6 +32,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E7019CD11EE1659100A43A4E /* NSAlert+LM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAlert+LM.h"; sourceTree = "<group>"; };
+		E7019CD21EE1659100A43A4E /* NSAlert+LM.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+LM.m"; sourceTree = "<group>"; };
 		E7C8EA7D1ECF6C540050E95B /* E4kBackgroundTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = E4kBackgroundTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7C8EA801ECF6C540050E95B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		E7C8EA811ECF6C540050E95B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -75,14 +78,16 @@
 		E7C8EA7F1ECF6C540050E95B /* E4kBackgroundTestApp */ = {
 			isa = PBXGroup;
 			children = (
-				E7C8EA861ECF6C550050E95B /* ViewController.h */,
 				E7C8EA871ECF6C550050E95B /* ViewController.m */,
-				E7C8EA801ECF6C540050E95B /* AppDelegate.h */,
+				E7C8EA861ECF6C550050E95B /* ViewController.h */,
+				E7019CD21EE1659100A43A4E /* NSAlert+LM.m */,
+				E7019CD11EE1659100A43A4E /* NSAlert+LM.h */,
 				E7C8EA811ECF6C540050E95B /* AppDelegate.m */,
+				E7C8EA801ECF6C540050E95B /* AppDelegate.h */,
 				E7C8EA841ECF6C550050E95B /* main.m */,
-				E7C8EA891ECF6C550050E95B /* Assets.xcassets */,
 				E7C8EA8B1ECF6C550050E95B /* Main.storyboard */,
 				E7C8EA8E1ECF6C550050E95B /* Info.plist */,
+				E7C8EA891ECF6C550050E95B /* Assets.xcassets */,
 			);
 			path = E4kBackgroundTestApp;
 			sourceTree = "<group>";
@@ -167,6 +172,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7019CD31EE1659100A43A4E /* NSAlert+LM.m in Sources */,
 				E7C8EA881ECF6C550050E95B /* ViewController.m in Sources */,
 				E7C8EA851ECF6C550050E95B /* main.m in Sources */,
 				E7C8EA821ECF6C540050E95B /* AppDelegate.m in Sources */,
@@ -329,6 +335,7 @@
 				E7C8EA931ECF6C550050E95B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

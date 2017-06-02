@@ -1,4 +1,5 @@
 #import "ViewController.h"
+#import "NSAlert+LM.h"
 #import <E4kBackgroundTestLibrary/E4kBackgroundTestLibrary.h>
 
 @implementation ViewController {
@@ -46,14 +47,11 @@
 {
     id<E4kBackgroundTestLibrary_IDownloaderWillStartEventArgs> eventArgs = aNotification.object;
     
-    NSAlert* alert = [NSAlert new];
-    alert.alertStyle = NSAlertStyleWarning;
-    alert.messageText = @"Download";
-    alert.informativeText = [NSString stringWithFormat:@"Are you sure you want to continue downloading from %@?", eventArgs.url];
-    [alert addButtonWithTitle:@"Yes, continue"];
-    [alert addButtonWithTitle:@"No, cancel"];
-    
-    NSModalResponse resp = [alert runModal];
+    NSModalResponse resp = [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
+                                               messageText:@"Download"
+                                           informativeText:[NSString stringWithFormat:@"Are you sure you want to continue downloading from %@?", eventArgs.url]
+                                          firstButtonTitle:@"Yes, continue"
+                                         secondButtonTitle:@"No, cancel"];
     
     BOOL cancel = resp == NSAlertSecondButtonReturn;
     
@@ -65,36 +63,24 @@
     id<E4kBackgroundTestLibrary_IDownloaderDidFinishEventArgs> eventArgs = aNotification.object;
     
     if (eventArgs.cancelled) {
-        NSAlert* alert = [NSAlert new];
-        alert.alertStyle = NSAlertStyleWarning;
-        alert.messageText = @"Download";
-        alert.informativeText = [NSString stringWithFormat:@"The download from %@ was cancelled by the user.", eventArgs.url];
-        [alert addButtonWithTitle:@"OK"];
-        
-        [alert runModal];
+        [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
+                            messageText:@"Download"
+                        informativeText:[NSString stringWithFormat:@"The download from %@ was cancelled by the user.", eventArgs.url]];
         
         return;
     }
     
     if (eventArgs.errorMessage) {
-        NSAlert* alert = [NSAlert new];
-        alert.alertStyle = NSAlertStyleWarning;
-        alert.messageText = @"Download";
-        alert.informativeText = [NSString stringWithFormat:@"An error occurred while downloading from %@: %@", eventArgs.url, eventArgs.errorMessage];
-        [alert addButtonWithTitle:@"OK"];
-        
-        [alert runModal];
+        [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
+                            messageText:@"Download"
+                        informativeText:[NSString stringWithFormat:@"An error occurred while downloading from %@: %@", eventArgs.url, eventArgs.errorMessage]];
         
         return;
     }
     
-    NSAlert* alert = [NSAlert new];
-    alert.alertStyle = NSAlertStyleWarning;
-    alert.messageText = @"Download";
-    alert.informativeText = [NSString stringWithFormat:@"Successfully downloaded from %@: %@", eventArgs.url, eventArgs.result];
-    [alert addButtonWithTitle:@"OK"];
-    
-    [alert runModal];
+    [NSAlert runModalAlertWithStyle:NSAlertStyleInformational
+                        messageText:@"Download"
+                    informativeText:[NSString stringWithFormat:@"Successfully downloaded from %@: %@", eventArgs.url, eventArgs.result]];
 }
 
 @end
