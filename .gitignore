@@ -286,3 +286,5 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/E4kBackgroundTestApp/E4kBackgroundTestApp.xcodeproj/xcuserdata/fx.xcuserdatad/xcdebugger
+/E4kBackgroundTestApp/E4kBackgroundTestApp.xcodeproj/project.xcworkspace/xcuserdata/fx.xcuserdatad/UserInterfaceState.xcuserstate
