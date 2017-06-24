@@ -4,10 +4,17 @@ using Foundation;
 
 namespace E4kBackgroundTestLibrary
 {
+    public interface IThisBreaksEmbeddinator
+    {
+
+    }
+
 	public interface IDownloaderWillStartEventArgs
 	{
 		string url { get; set; }
 		bool cancel { get; set; }
+
+        IThisBreaksEmbeddinator thisBreaksEmbeddinator { get; set; }
 	}
 
 	[Register]
@@ -18,6 +25,9 @@ namespace E4kBackgroundTestLibrary
 
 		[Export("cancel")]
 		public bool cancel { get; set; }
+
+		[Export("thisBreaksEmbeddinator")]
+		public IThisBreaksEmbeddinator thisBreaksEmbeddinator { get; set; }
 	}
 
 	public interface IDownloaderDidFinishEventArgs
