@@ -15,6 +15,7 @@ namespace E4kBackgroundTestLibrary
 		bool cancel { get; set; }
 
         IThisBreaksEmbeddinator thisBreaksEmbeddinator { get; set; }
+        IThisBreaksEmbeddinator[] thisActuallyWorks { get; set; }
 	}
 
 	[Register]
@@ -28,6 +29,9 @@ namespace E4kBackgroundTestLibrary
 
 		[Export("thisBreaksEmbeddinator")]
 		public IThisBreaksEmbeddinator thisBreaksEmbeddinator { get; set; }
+
+		[Export("thisActuallyWorks")]
+		public IThisBreaksEmbeddinator[] thisActuallyWorks { get; set; }
 	}
 
 	public interface IDownloaderDidFinishEventArgs
