@@ -4,6 +4,11 @@ using Foundation;
 
 namespace E4kBackgroundTestLibrary
 {
+    public static class ObjCMain
+    {
+        public static void Main() { }
+    }
+
     public class ObjCEvent
     {
         public string Name { get; private set; }
@@ -13,9 +18,9 @@ namespace E4kBackgroundTestLibrary
             Name = nameof(E4kBackgroundTestLibrary) + "_" + nameof(ObjCEvent) + "_" + name;
         }
 
-        internal void Raise(NSObject obj = null)
+        internal void Invoke(object sender, NSObject eventArgs = null)
         {
-            NSNotificationCenter.DefaultCenter.PostNotificationName(Name, obj);
+            NSNotificationCenter.DefaultCenter.PostNotificationName(Name, eventArgs);
         }
     }
 }

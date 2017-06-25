@@ -24,20 +24,19 @@ namespace E4kBackgroundTestLibrary
         {
             string url = URL;
 
-            DownloaderWillStartEventArgs willStartEventArgs = new DownloaderWillStartEventArgs() {
-                url = url,
-                cancel = false
-            };
+            DownloaderWillStartEventArgs willStartEventArgs = new DownloaderWillStartEventArgs(url: url);
 
-            WillStartDownload.Raise(willStartEventArgs);
+            WillStartDownload.Invoke(this, willStartEventArgs);
 
             bool cancel = willStartEventArgs.cancel;
 
             if (cancel) {
-				DidFinishDownload.Raise(new DownloaderDidFinishEventArgs() {
-					url = url,
-					cancelled = true
-				});
+                DidFinishDownload.Invoke(this, new DownloaderDidFinishEventArgs(
+                    url: url,
+                    cancelled: true,
+                    errorMessage: null,
+                    result: null
+                ));
 
                 return;
             }
@@ -45,22 +44,23 @@ namespace E4kBackgroundTestLibrary
             WebClient wc = new WebClient();
 
             wc.DownloadStringCompleted += (sender, e) => {
-				DidFinishDownload.Raise(new DownloaderDidFinishEventArgs() {
-					url = url,
-                    cancelled = e.Cancelled,
-                    errorMessage = e.Error != null ? e.Error.Message : null,
-                    result = e.Error == null && e.Result != null ? e.Result : null
-				});
+                DidFinishDownload.Invoke(this, new DownloaderDidFinishEventArgs(
+                    url: url,
+                    cancelled: e.Cancelled,
+                    errorMessage: e.Error != null ? e.Error.Message : null,
+                    result: e.Error == null && e.Result != null ? e.Result : null
+                ));
             };
 
             try {
 				wc.DownloadStringAsync(new Uri(url));
             } catch (Exception ex) {
-				DidFinishDownload.Raise(new DownloaderDidFinishEventArgs() {
-                    url = url,
-                    cancelled = false,
-                    errorMessage = ex.Message
-				});
+                DidFinishDownload.Invoke(this, new DownloaderDidFinishEventArgs(
+                    url: url,
+                    cancelled: false,
+                    errorMessage: ex.Message,
+                    result: null
+                ));
             }
         }
     }

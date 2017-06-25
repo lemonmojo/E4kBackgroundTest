@@ -17,6 +17,8 @@
     
     _didAwake = YES;
     
+    [E4kBackgroundTestLibrary_ObjCMain main];
+    
     [self subscribeToEvents];
 }
 
@@ -45,11 +47,11 @@
 
 - (void)willStartDownload:(NSNotification*)aNotification
 {
-    id<E4kBackgroundTestLibrary_IDownloaderWillStartEventArgs> eventArgs = aNotification.object;
+    E4kBackgroundTestLibrary_DownloaderWillStartEventArgs* eventArgs = aNotification.object;
     
     NSModalResponse resp = [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
                                                messageText:@"Download"
-                                           informativeText:[NSString stringWithFormat:@"Are you sure you want to continue downloading from %@?", eventArgs.url]
+                                           informativeText:[NSString stringWithFormat:@"Are you sure you want to continue downloading from %@?", [eventArgs.information url]]
                                           firstButtonTitle:@"Yes, continue"
                                          secondButtonTitle:@"No, cancel"];
     
@@ -60,12 +62,12 @@
 
 - (void)didFinishDownload:(NSNotification*)aNotification
 {
-    id<E4kBackgroundTestLibrary_IDownloaderDidFinishEventArgs> eventArgs = aNotification.object;
+    E4kBackgroundTestLibrary_DownloaderDidFinishEventArgs* eventArgs = aNotification.object;
     
     if (eventArgs.cancelled) {
         [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
                             messageText:@"Download"
-                        informativeText:[NSString stringWithFormat:@"The download from %@ was cancelled by the user.", eventArgs.url]];
+                        informativeText:[NSString stringWithFormat:@"The download from %@ was cancelled by the user.", [eventArgs.information url]]];
         
         return;
     }
@@ -73,14 +75,14 @@
     if (eventArgs.errorMessage) {
         [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
                             messageText:@"Download"
-                        informativeText:[NSString stringWithFormat:@"An error occurred while downloading from %@: %@", eventArgs.url, eventArgs.errorMessage]];
+                        informativeText:[NSString stringWithFormat:@"An error occurred while downloading from %@: %@", [eventArgs.information url], eventArgs.errorMessage]];
         
         return;
     }
     
     [NSAlert runModalAlertWithStyle:NSAlertStyleInformational
                         messageText:@"Download"
-                    informativeText:[NSString stringWithFormat:@"Successfully downloaded from %@: %@", eventArgs.url, eventArgs.result]];
+                    informativeText:[NSString stringWithFormat:@"Successfully downloaded from %@: %@", [eventArgs.information url], eventArgs.result]];
 }
 
 @end

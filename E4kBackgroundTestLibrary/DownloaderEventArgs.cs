@@ -2,59 +2,58 @@
 
 using Foundation;
 
+using EventArgs = Foundation.NSObject;
+
 namespace E4kBackgroundTestLibrary
 {
-    public interface IThisBreaksEmbeddinator
+    [Register]
+    public class DownloaderInformation : NSObject
     {
+        [Export(nameof(url))]
+        public string url { get; private set; }
 
+        internal DownloaderInformation(string url)
+        {
+            this.url = url;
+        }
     }
 
-	public interface IDownloaderWillStartEventArgs
-	{
-		string url { get; set; }
-		bool cancel { get; set; }
-
-        IThisBreaksEmbeddinator thisBreaksEmbeddinator { get; set; }
-        IThisBreaksEmbeddinator[] thisActuallyWorks { get; set; }
-	}
-
 	[Register]
-	public class DownloaderWillStartEventArgs : NSObject, IDownloaderWillStartEventArgs
+    public class DownloaderWillStartEventArgs : EventArgs
 	{
-		[Export("url")]
-		public string url { get; set; }
+        [Export(nameof(information))]
+        public DownloaderInformation information { get; private set; }
 
-		[Export("cancel")]
+        [Export(nameof(cancel))]
 		public bool cancel { get; set; }
 
-		[Export("thisBreaksEmbeddinator")]
-		public IThisBreaksEmbeddinator thisBreaksEmbeddinator { get; set; }
-
-		[Export("thisActuallyWorks")]
-		public IThisBreaksEmbeddinator[] thisActuallyWorks { get; set; }
-	}
-
-	public interface IDownloaderDidFinishEventArgs
-	{
-		string url { get; set; }
-		bool cancelled { get; set; }
-		string errorMessage { get; set; }
-		string result { get; set; }
+        internal DownloaderWillStartEventArgs(string url)
+        {
+            this.information = new DownloaderInformation(url);
+        }
 	}
 
 	[Register]
-	public class DownloaderDidFinishEventArgs : NSObject, IDownloaderDidFinishEventArgs
+	public class DownloaderDidFinishEventArgs : EventArgs
 	{
-		[Export("url")]
-		public string url { get; set; }
+		[Export(nameof(information))]
+		public DownloaderInformation information { get; private set; }
 
-		[Export("cancelled")]
-		public bool cancelled { get; set; }
+        [Export(nameof(cancelled))]
+		public bool cancelled { get; private set; }
 
-		[Export("errorMessage")]
-		public string errorMessage { get; set; }
+        [Export(nameof(errorMessage))]
+		public string errorMessage { get; private set; }
 
-		[Export("result")]
-		public string result { get; set; }
+        [Export(nameof(result))]
+		public string result { get; private set; }
+
+		internal DownloaderDidFinishEventArgs(string url, bool cancelled, string errorMessage, string result)
+		{
+			this.information = new DownloaderInformation(url);
+            this.cancelled = cancelled;
+            this.errorMessage = errorMessage;
+            this.result = result;
+		}
 	}
 }
