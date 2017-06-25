@@ -47,7 +47,9 @@
 
 - (void)willStartDownload:(NSNotification*)aNotification
 {
-    E4kBackgroundTestLibrary_DownloaderWillStartEventArgs* eventArgs = aNotification.object;
+    E4kBackgroundTestLibrary_Downloader* sender = [E4kBackgroundTestLibrary_Downloader fromHandleHandlePointerLong:[E4kBackgroundTestLibrary_NativeObjCEvent senderHandleFromNSNotification:aNotification]];
+    
+    E4kBackgroundTestLibrary_DownloaderWillStartEventArgs* eventArgs = (E4kBackgroundTestLibrary_DownloaderWillStartEventArgs*)[E4kBackgroundTestLibrary_NativeObjCEvent eventArgsFromNSNotification:aNotification];
     
     NSModalResponse resp = [NSAlert runModalAlertWithStyle:NSAlertStyleWarning
                                                messageText:@"Download"
@@ -62,7 +64,9 @@
 
 - (void)didFinishDownload:(NSNotification*)aNotification
 {
-    E4kBackgroundTestLibrary_DownloaderDidFinishEventArgs* eventArgs = aNotification.object;
+    E4kBackgroundTestLibrary_Downloader* sender = [E4kBackgroundTestLibrary_Downloader fromHandleHandlePointerLong:[E4kBackgroundTestLibrary_NativeObjCEvent senderHandleFromNSNotification:aNotification]];
+    
+    E4kBackgroundTestLibrary_DownloaderDidFinishEventArgs* eventArgs = (E4kBackgroundTestLibrary_DownloaderDidFinishEventArgs*)[E4kBackgroundTestLibrary_NativeObjCEvent eventArgsFromNSNotification:aNotification];
     
     if (eventArgs.cancelled) {
         [NSAlert runModalAlertWithStyle:NSAlertStyleWarning

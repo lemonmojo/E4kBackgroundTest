@@ -20,6 +20,24 @@ namespace E4kBackgroundTestLibrary
             URL = url;
         }
 
+        public static Downloader FromHandle(long handlePointerLong)
+        {
+            object obj = ObjCEvent.ObjectFromHandle(handlePointerLong);
+
+            if (obj == null) {
+                return null;
+            }
+
+            return (Downloader)obj;
+        }
+
+        public long Handle
+        {
+            get {
+                return ObjCEvent.HandleOfObject(this);
+            }
+        }
+
         public void Download()
         {
             string url = URL;
